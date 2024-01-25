@@ -59,7 +59,6 @@ html, body {
 #form_content_container {
     width: 100%;
     height: 90%;
-
     float: left;
     display: flex;
     justify-content: center;
@@ -78,16 +77,13 @@ html, body {
 input {
     width: 100%;
     height: 40px;
-
     padding-left: 10px;
     margin-bottom: 20px;
-
     background: #000;
     font-family: Montserrat;
     font-weight: 500;
     color: #fff;
     font-size: 12px;
-
     border-bottom: 2px solid transparent;
     border-top-left-radius: 2%;
     border-top-right-radius: 2%;
@@ -97,12 +93,9 @@ input {
 #button_container {
     width: 100%;
     height: 10%;
-
     background-image: linear-gradient(80deg, #FFBE0B, #FB5607 50%, #FF006E 50%, #8338EC);
     color: #fff;
-
     float: left;
-
     margin-top: 5px;
 }
 
@@ -110,17 +103,13 @@ input {
     width: 50%;
     height: 100%;
     float: left;
-
     background: transparent;
     color: inherit;
-
     font-family: Montserrat;
     letter-spacing: 1px;
     font-weight: 900;
     font-size: 12px;
-
     cursor: pointer;
-
     display: flex;
     justify-content: center;
     align-items: center;
