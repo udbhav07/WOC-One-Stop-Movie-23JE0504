@@ -13,7 +13,7 @@ const setupUI = (user)=>{
 
 
 var firebaseConfig = {
-    apiKey: "AIzaSyBb_uaUf7h9fehBrb2zMzHA2iKqjE_iSCQ",
+    apiKey: "",
     authDomain: "testing-project-51fc0.firebaseapp.com",
     projectId: "testing-project-51fc0",
     storageBucket: "testing-project-51fc0.appspot.com",
@@ -35,7 +35,7 @@ logout.addEventListener('click', (e) => {
     });
 });
 
-const API_KEY = 'api_key=3de6940859a5e0754319697fda7aa5a6';
+const API_KEY = '';
 const BASE_URL = 'https://api.themoviedb.org/3';
 const API_URL = BASE_URL + '/discover/movie?sort_by=popularity.desc&'+API_KEY;
 const IMG_URL = 'https://image.tmdb.org/t/p/w500';
