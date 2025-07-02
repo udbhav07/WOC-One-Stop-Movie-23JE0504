@@ -1,113 +1,92 @@
-var firebaseConfig = {
-  apiKey: "",
-  authDomain: "testing-project-51fc0.firebaseapp.com",
-  databaseURL: "https://testing-project-51fc0-default-rtdb.firebaseio.com",
-  projectId: "testing-project-51fc0",
-  storageBucket: "testing-project-51fc0.appspot.com",
-  messagingSenderId: "573655899440",
-  appId: "1:573655899440:web:99060c52929031ee317cf5"
-};
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth()
-const database = firebase.database()
-function register () {
-  email = document.getElementById('email').value
-  password = document.getElementById('password').value
-  full_name = document.getElementById('full_name').value
-  if (validate_email(email) == false || validate_password(password) == false) {
-    alert('Email or Password is Outta Line!!')
-    return
+import { auth, database } from './firebase.js';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+import { ref, set, update } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+
+// REGISTER FUNCTION
+function register() {
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value.trim();
+  const full_name = document.getElementById('full_name')?.value.trim() || "";
+
+  if (!validate_email(email) || !validate_password(password)) {
+    alert('Invalid Email or Password');
+    return;
   }
-  if (validate_field(full_name) == false) {
-    alert('One or More Extra Fields is Outta Line!!')
-    return
+
+  if (!validate_field(full_name)) {
+    alert('Full Name is required!');
+    return;
   }
-  auth.createUserWithEmailAndPassword(email, password)
-  .then(function() {
-    var user = auth.currentUser
-    var database_ref = database.ref()
-    var user_data = {
-      email : email,
-      full_name : full_name,
-      last_login : Date.now()
-    }
-    database_ref.child('users/' + user.uid).set(user_data)
-    alert('User Created!!')
-  })
-  .catch(function(error) {
-    var error_code = error.code
-    var error_message = error.message
 
-    alert(error_message)
-  })
-}
-function login () {
-  email = document.getElementById('email').value
-  password = document.getElementById('password').value
-  if (validate_email(email) == false || validate_password(password) == false) {
-    alert('Email or Password is Outta Line!!')
-    return
-      }
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      const user_data = {
+        email: email,
+        full_name: full_name,
+        last_login: Date.now()
+      };
 
-  auth.signInWithEmailAndPassword(email, password)
-  .then(function() {
-    var user = auth.currentUser
-    var database_ref = database.ref()
-
-    var user_data = {
-      last_login : Date.now()
-    }
-
-    // Push to Firebase Database
-    database_ref.child('users/' + user.uid).update(user_data)
-
-    // DOne
-    alert('User Logged In!!');
-    window.location.href = "homepage.html"     
-        
-
-
-  })
-  .catch(function(error) {
-    // Firebase will use this to alert of its errors
-    var error_code = error.code
-    var error_message = error.message
-
-    alert(error_message)
-  })
+      return set(ref(database, 'users/' + user.uid), user_data);
+    })
+    .then(() => {
+      alert('User Registered Successfully!');
+    })
+    .catch((error) => {
+      alert(error.message);
+    });
 }
 
+// LOGIN FUNCTION
+function login() {
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value.trim();
 
+  if (!validate_email(email) || !validate_password(password)) {
+    alert('Invalid Email or Password');
+    return;
+  }
 
-// Validate Functions
+  signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      const user_data = {
+        last_login: Date.now()
+      };
+
+      return update(ref(database, 'users/' + user.uid), user_data);
+    })
+    .then(() => {
+      alert('Login Successful!');
+      window.location.href = "homepage.html";
+    })
+    .catch((error) => {
+      alert(error.message);
+    });
+}
+
+// VALIDATION FUNCTIONS
 function validate_email(email) {
-  expression = /^[^@]+@\w+(\.\w+)+\w$/
-  if (expression.test(email) == true) {
-    // Email is good
-    return true
-  } else {
-    // Email is not good
-    return false
-  }
+  const expression = /^[^@]+@\w+(\.\w+)+\w$/;
+  return expression.test(email);
 }
 
 function validate_password(password) {
-  // Firebase only accepts lengths greater than 6
-  if (password < 6) {
-    return false
-  } else {
-    return true
-  }
+  return password.length >= 6;
 }
 
 function validate_field(field) {
-  if (field == null) {
-    return false
-  }
-
-  if (field.length <= 0) {
-    return false
-  } else {
-    return true
-  }
+  return field && field.trim().length > 0;
 }
+
+// AUTO-REDIRECT IF LOGGED IN
+onAuthStateChanged(auth, user => {
+  const path = window.location.pathname;
+  if (user && (path.includes("loginoutpage") || path.includes("loginout.html"))) {
+    window.location.href = "homepage.html";
+  }
+});
+
+// Export for use in HTML onclick
+window.login = login;
+window.register = register;

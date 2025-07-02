@@ -1,126 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ONESTOP</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ONESTOP</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link href="homepage.css" rel="stylesheet">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link href="homepage.css" rel="stylesheet" />
 </head>
-</head>
+
 <body>
-    <!-- main nav bar -->
-<nav class="navbar navbar-expand-md  bg-primary-subtle">
-        <div class="container-fluid">
-            <a href="homepage.html" class="navbar-brand">ONESTOP MOVIE
-                <img src="LOGO.png" class="logo">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav" >
-                  <a class="nav-link logged-in " href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"> ACCOUNT</a>
-                  <a class="nav-link logged-in" href="#" class="logout" id="logout" > LOGOUT</a>
-                </div>
-            
+  <!-- main nav bar -->
+  <nav class="navbar navbar-expand-md bg-primary-subtle">
+    <div class="container-fluid">
+      <a href="homepage.html" class="navbar-brand">ONESTOP MOVIE
+        <img src="LOGO.png" class="logo" />
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-link logged-in" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">ACCOUNT</a>
+          <a class="nav-link logged-in" href="#" id="logout">LOGOUT</a>
         </div>
-     </nav>
+      </div>
+    </div>
+  </nav>
 
-     
-     <!-- search bar -->
+  <!-- search bar -->
+  <nav class="navbar bg-body-tertiary searchbar sticky-top">
+    <div class="container-fluid">
+      <form id="search_form" class="d-flex" role="search">
+        <input id="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
 
-     <nav class="navbar bg-body-tertiary searchbar sticky-top" >
-        <div class="container-fluid">
-          <form id = search_form class="d-flex" role="search">
-            <input id="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
+  <!-- user account modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Account Details</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        
-      </nav>
-
-
-      <!-- user account modal -->
-      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body account-details">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        
+        <div class="modal-body account-details">
+          <!-- User info will be dynamically loaded here -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<div id="tags">
-  <!-- <div class="tag">action</div>
-  <div class="tag">action</div> -->
- 
-</div>
-<main id="main">
-  <!-- frontend homepage code -->
-  <!-- <div class="movie">
-    <img src="LOGO.png" alt="image">
-    <div class="movie-info">
-      <h3>
-        movie title
-      </h3>
-      <span class="green">
-        9.8
-      </span>
-    </div>
-      <div class="overview">
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi, aspernatur! Praesentium quasi placeat animi dolorem quibusdam, odit quam distinctio. Placeat. 
-      </div>
-   
-  </div> -->
+  <div id="tags"></div>
+
+  <main id="main">
+    <!-- Movie cards will be inserted here by JavaScript -->
   </main>
 
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
 
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
-  <!-- FIREBASE AUTHENTICATION -->
+  <!-- Your Scripts -->
 
-       <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+  <script type="module" src="index.js"></script>
 
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-         https://firebase.google.com/docs/web/setup#available-libraries -->
-    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
-
-    <!-- Our script must be loaded after firebase references -->
-
- 
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
-    
-      <script src="index.js"></script>
-      <script src="homepage.js"></script>
-
-     
-    
-
-      
-   
-     
-      </script>
-    </body>
-  </html>
+  <script type="module" src="index.js"></script>
+  <script type="module" src="homepage.js"></script>
 </body>
 </html>
-
-
-
-    
-    
- 
