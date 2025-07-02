@@ -1,5 +1,5 @@
 // homepage.js
-import { auth } from './firebase.js'; // ✅ Import from firebase.js
+import { auth } from './firebase.js'; // 
 
 const accountdetails = document.querySelector('.account-details');
 
@@ -27,7 +27,7 @@ logout.addEventListener('click', (e) => {
 });
 
 // TMDB API config
-const API_KEY = '3de6940859a5e0754319697fda7aa5a6';
+const API_KEY = '';
 const BASE_URL = 'https://api.themoviedb.org/3';
 const API_URL = `${BASE_URL}/discover/movie?sort_by=popularity.desc&api_key=${API_KEY}`;
 const IMG_URL = 'https://image.tmdb.org/t/p/w500';
